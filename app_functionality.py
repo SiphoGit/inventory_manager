@@ -6,9 +6,9 @@ class Functions:
     def capture_shoe(file_name: str):
         with open(file_name, 'a') as file:
 
-            country = input("Enter country:")
-            code = input("Shoe code:")
-            product = input("Name:")
+            country = input("Enter country:").capitalize()
+            code = input("Shoe code:").upper()
+            product = input("Name:").capitalize()
             cost = input("Cost:")
             quantity = input("Quantity:")
 
@@ -30,11 +30,11 @@ class Functions:
         for shoe in lst: 
             print(shoe)
             
-     # Lets the user to search a shoe using shoe code.
-    def search_shoe(lst: list[object], shoe_code) -> str:     
-        for item in lst:
-            if item.code == shoe_code:
-                return (f"{item}")
+    # Lets the user to search a shoe using shoe code.
+    def search_shoe(lst: list[object], shoe_code: str) -> str:     
+        for shoe in lst:
+            if shoe.code == shoe_code:
+                return shoe
             
         return ("Shoe not found.")
     
@@ -58,22 +58,95 @@ class Functions:
             print(f"\nShoe: {shoe.product} \nValue: R{value}")
     
     # Removes shoe from inventory.
-    def delete_shoe(shoe_objects: list, updated_new_file: str, shoe_code: str):
+    def delete_shoe(shoe_objects: list[object], shoe_code: str):
         try:
             for line in shoe_objects:
                 if line.code == shoe_code:
                     shoe_objects.remove(line)
                     print(f"{line.product} deleted!")
 
-                    with open(updated_new_file, "w") as file: 
+                    with open("inventory.txt", "w") as file: 
                         file.write("Country,Code,Product,Cost,Quantity\n")
+
                         for item in shoe_objects:
                             file.write(f"{item.country},{item.code},{item.product},{item.cost},{item.quantity}")    
-
-                if line.code not in shoe_code: 
+                else:
                     print("Shoe not found")
-                    break
+                    break         
         except IOError:
                     print("File name does not exist.")   
-       
+    
+    def update_shoe(shoe_objects: list[object], shoe_code: str) -> str:      
+        try:            
+            for shoe in shoe_objects:
+                if shoe.code == shoe_code:
+                    print(f"\nEdit: {shoe}")
+
+                    select_option = input('''\nWhat would you like to edit:
+                    1 - Country
+                    2 - Code 
+                    3 - Shoe name 
+                    4 - Shoe price
+                    5 - Shoe quantity
+                    0 - Back to main menu
+                    >>> ''')
+
+                    if select_option == "1":
+                        new_country = input("Enter new country: ").upper()
+                        shoe.country = new_country
+                        
+                        with open("inventory.txt", "w") as file:
+                            file.write("Country,Code,Product,Cost,Quantity\n")
+                            
+                            for item in shoe_objects:
+                                file.write(f"{item.country},{item.code},{item.product},{item.cost},{item.quantity}") 
+
+                        print(f"{shoe.product} country updated!\n{shoe}" )   
+                    elif select_option == "2":
+                        new_code = input("Enter new code: ").upper()
+                        shoe.code = new_code
+                        
+                        with open("inventory.txt", "w") as file:
+                            file.write("Country,Code,Product,Cost,Quantity\n")
+
+                            for item in shoe_objects:
+                                file.write(f"{item.country},{item.code},{item.product},{item.cost},{item.quantity}") 
+
+                        print(f"{shoe.product} code update!\n{shoe}" )  
+                    elif select_option == "3":
+                        new_shoe_name = input("Enter new shoe name: ").capitalize()
+                        shoe.product = new_shoe_name
+                        
+                        with open("inventory.txt", "w") as file:
+                            file.write("Country,Code,Product,Cost,Quantity\n")
+                            for item in shoe_objects:
+                                file.write(f"{item.country},{item.code},{item.product},{item.cost},{item.quantity}") 
+
+                        print(f"Shoe name updated to {shoe.product}\n{shoe}" )   
+                    elif select_option == "4":
+                        new_price = input("Enter new price: ")
+                        shoe.cost = new_price
+                        
+                        with open("inventory.txt", "w") as file:
+                            file.write("Country,Code,Product,Cost,Quantity\n")
+                            for item in shoe_objects:
+                                file.write(f"{item.country},{item.code},{item.product},{item.cost},{item.quantity}") 
+
+                        print(f"{shoe.product} price updated!\n{shoe}" )   
+                    elif select_option == "5":
+                        new_quantity = input("Enter new quantity: ")
+                        shoe.quantity = f"{new_quantity}\n"
+                        
+                        with open("inventory.txt", "w") as file:
+                            file.write("Country,Code,Product,Cost,Quantity\n")
+                            for item in shoe_objects:
+                                file.write(f"{item.country},{item.code},{item.product},{item.cost},{item.quantity}") 
+                        print(f"{shoe.product} price updated!\n{shoe}" )      
+                    elif select_option == "0":
+                        break
+                    else:
+                        print("invalid option")
+        except IOError:
+                print("File name does not exist.") 
+
                 
