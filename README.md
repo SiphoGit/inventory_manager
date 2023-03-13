@@ -14,8 +14,9 @@ The purpose of this project is to help shoe stores manage their Inventory.
 ## Features
 - Determine product with the lowest quantity.
 - Determine product with the highest quantity.
-- Calculate total worth of each item
-- Displays data ina table format
+- Calculate total worth of each item.
+- Update shoe details.
+- Delete shoe.
 
 ## Tech Stack
 
@@ -27,10 +28,6 @@ The purpose of this project is to help shoe stores manage their Inventory.
 * [Install python](https://www.python.org/downloads/)
 * Run programm on cmd
 * Programm path
-
-```
-python inventory.py
-```
     
 ## Authors
 
