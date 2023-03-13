@@ -26,9 +26,8 @@ The purpose of this project is to help shoe stores manage their Inventory.
 ## Installation
 
 * [Install python](https://www.python.org/downloads/)
-* Run programm on cmd
-* Programm path
-    
+* Run programm on cmd or any python IDE
+   
 ## Authors
 
 - [@Sipho Shimange](https://github.com/SiphoGit)
